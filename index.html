@@ -1,0 +1,3324 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    // Must run first, before the browser's automatic scroll restoration kicks in.
+    // Reload: let the browser restore the exact scroll position natively — never touch it again.
+    // Fresh navigation: take manual control so we can open on the Hero middle, once, at DOM-ready.
+    (function () {
+      var navEntries = (window.performance && performance.getEntriesByType) ? performance.getEntriesByType('navigation') : [];
+      var isReload = navEntries.length ? navEntries[0].type === 'reload'
+        : !!(window.performance && performance.navigation && performance.navigation.type === 1);
+      window.__ultrachemIsReload = isReload;
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = isReload ? 'auto' : 'manual';
+      }
+      if (isReload) return;
+
+      if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+      window.scrollToHeroMiddle = function () {
+        var hero = document.getElementById('top');
+        if (!hero) return;
+        var target = hero.offsetTop + (hero.offsetHeight / 2) - (window.innerHeight / 2);
+        window.scrollTo({ top: Math.max(0, Math.round(target)), behavior: 'smooth' });
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        // double rAF: wait for layout/fonts to settle, without depending on slow external resources (map tiles, etc.)
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            var hero = document.getElementById('top');
+            if (!hero) return;
+            var target = hero.offsetTop + (hero.offsetHeight / 2) - (window.innerHeight / 2);
+            window.scrollTo(0, Math.max(0, Math.round(target)));
+          });
+        });
+      });
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ULTRACHEM — Émulsions et additifs pour peintures</title>
+  <meta name="description"
+    content="ULTRACHEM distribue des émulsions, additifs, pigments, dioxyde de titane et solutions chimiques pour l'industrie de la peinture en Tunisie et en Afrique.">
+  <link rel="canonical" href="https://www.ultrachem.tn/">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="French">
+  <meta name="geo.region" content="TN-61">
+  <meta name="geo.placename" content="Sfax, Tunisie">
+
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ULTRACHEM">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://www.ultrachem.tn/">
+  <meta property="og:title" content="ULTRACHEM — Émulsions et additifs pour peintures">
+  <meta property="og:description"
+    content="Distributeur d'émulsions, additifs, pigments et dioxyde de titane pour l'industrie de la peinture, en Tunisie et en Afrique.">
+  <meta property="og:image" content="https://www.ultrachem.tn/images/LOGO_ULTRACHEM.webp">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="1080">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ULTRACHEM — Émulsions et additifs pour peintures">
+  <meta name="twitter:description"
+    content="Distributeur d'émulsions, additifs, pigments et dioxyde de titane pour l'industrie de la peinture, en Tunisie et en Afrique.">
+  <meta name="twitter:image" content="https://www.ultrachem.tn/images/LOGO_ULTRACHEM.webp">
+
+  <link rel="icon" type="image/webp" href="images/Favicon.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Structured data: Organization / LocalBusiness -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://www.ultrachem.tn/#organization",
+  "name": "ULTRACHEM",
+  "url": "https://www.ultrachem.tn/",
+  "logo": "https://www.ultrachem.tn/images/LOGO_ULTRACHEM.webp",
+  "description": "ULTRACHEM distribue des émulsions, additifs, pigments, dioxyde de titane et solutions chimiques pour l'industrie de la peinture en Tunisie et en Afrique.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Avenue Lakhmi, Imm La Perla 2, 6ème étage",
+    "addressLocality": "Sfax",
+    "addressCountry": "TN"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+216-26-146-655",
+    "contactType": "sales",
+    "areaServed": ["TN", "Africa"],
+    "availableLanguage": ["French", "Arabic"]
+  },
+  "email": "contact@ultrachem.tn"
+}
+</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "ULTRACHEM",
+  "image": "https://www.ultrachem.tn/images/LOGO_ULTRACHEM.webp",
+  "url": "https://www.ultrachem.tn/",
+  "telephone": "+216-26-146-655",
+  "email": "contact@ultrachem.tn",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Avenue Lakhmi, Imm La Perla 2, 6ème étage",
+    "addressLocality": "Sfax",
+    "addressCountry": "TN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 34.7406,
+    "longitude": 10.7603
+  },
+  "priceRange": "$$"
+}
+</script>
+
+  <style>
+    :root {
+      --blue: #0957A6;
+      --blue-dark: #073E78;
+      --blue-secondary: #259FDA;
+      --blue-tint: #E8F1FA;
+      --navy: #0A1B2E;
+      --navy-soft: #122841;
+      --white: #FFFFFF;
+      --grey-50: #F5F7F9;
+      --grey-100: #ECEFF2;
+      --grey-300: #D3DAE1;
+      --grey-500: #8695A3;
+      --ink: #131E29;
+      --ink-soft: #4E5C68;
+      --green: #3E8F63;
+      --radius-s: 4px;
+      --radius-m: 6px;
+      --radius-l: 8px;
+      --radius-btn: 0px;
+      --container: 1360px;
+      --font-display: 'Montserrat', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --font-mono: 'Montserrat', sans-serif;
+      --ease: cubic-bezier(.4, 0, .2, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+    }
+
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    p {
+      margin: 0;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media(min-width:900px) {
+      .container {
+        padding: 0 40px;
+      }
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: var(--blue);
+      flex: 0 0 auto;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    @media(min-width:900px) {
+      .section {
+        padding: 120px 0;
+      }
+    }
+
+    .section-grey {
+      background: var(--grey-50);
+    }
+
+    .section-navy {
+      background: linear-gradient(155deg, rgba(10, 27, 46, .90) 0%, rgba(7, 62, 120, .84) 32%, rgba(9, 87, 166, .78) 60%, rgba(37, 159, 218, .62) 100%), var(--navy);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-navy .container {
+      position: relative;
+      z-index: 2;
+    }
+
+
+    .section-head {
+      max-width: 640px;
+      margin-bottom: 48px;
+    }
+
+    section[id] {
+      scroll-margin-top: 125px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      margin-top: 14px;
+    }
+
+    .section-head .lead {
+      margin-top: 16px;
+      font-size: 17px;
+      color: var(--ink-soft);
+    }
+
+    .section-navy .section-head .lead {
+      color: #AFC0D1;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: .02em;
+      padding: 14px 24px;
+      border-radius: var(--radius-btn);
+      border: 1px solid transparent;
+      transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+      min-height: 44px;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--blue-secondary);
+      border-color: var(--blue-secondary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--blue-secondary);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255, 255, 255, .35);
+    }
+
+    .btn-ghost:hover {
+      border-color: #fff;
+      background: rgba(255, 255, 255, .08);
+      transform: translateY(-2px);
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn:focus-visible,
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--grey-100);
+    }
+
+    header::before {
+      content: '';
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--blue-secondary) 100%);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 122px;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto;
+    }
+
+    .logo-img {
+      height: 120px;
+      width: auto;
+      display: block;
+    }
+
+    .logo-img-footer {
+      height: 120px;
+    }
+
+    .nav-desktop {
+      display: none;
+    }
+
+    @media(min-width:900px) {
+      .nav-desktop {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+      }
+
+      .nav-desktop a {
+        font-size: 14.5px;
+        font-weight: 500;
+        color: var(--ink);
+        position: relative;
+        padding: 6px 0;
+      }
+
+      .nav-desktop a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background: var(--blue);
+        transition: width .2s var(--ease);
+      }
+
+      .nav-desktop a:hover::after {
+        width: 100%;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-s);
+      color: var(--ink);
+      transition: border-color .2s var(--ease), background .2s var(--ease);
+    }
+
+    .icon-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    @media(min-width:900px) {
+      .hamburger {
+        display: none;
+      }
+    }
+
+    /* Language switcher */
+    .lang-switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-s);
+      height: 40px;
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+    .lang-option {
+      position: relative;
+      z-index: 1;
+      width: 36px;
+      height: 100%;
+      padding: 7px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      opacity: .5;
+      transition: opacity .3s var(--ease), transform .3s var(--ease);
+    }
+
+    .lang-option svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 2px;
+    }
+
+    .lang-option:hover:not(.active) {
+      opacity: .8;
+    }
+
+    .lang-option.active {
+      opacity: 1;
+    }
+
+    .lang-thumb {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 36px;
+      height: 3px;
+      background: var(--blue);
+      z-index: 2;
+      transition: transform .4s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    .lang-switch[data-active="en"] .lang-thumb {
+      transform: translateX(36px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .lang-thumb {
+        transition: none;
+      }
+    }
+
+    @media(max-width:420px) {
+      .lang-switch {
+        height: 36px;
+      }
+
+      .lang-option {
+        width: 30px;
+      }
+
+      .lang-thumb {
+        width: 30px;
+      }
+
+      .lang-switch[data-active="en"] .lang-thumb {
+        transform: translateX(30px);
+      }
+    }
+
+    /* Fluid content transition when switching language */
+    #main {
+      transition: opacity .35s var(--ease), filter .35s var(--ease), transform .35s var(--ease);
+    }
+
+    body.lang-fade #main {
+      opacity: .88;
+      filter: blur(3px);
+      transform: translateY(3px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #main {
+        transition: none;
+      }
+
+      body.lang-fade #main {
+        opacity: 1;
+        filter: none;
+        transform: none;
+      }
+    }
+
+    /* Global search — icon toggle + full-width panel (restored earlier style) */
+    .search-panel {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      background: #fff;
+      border-bottom: 1px solid var(--grey-100);
+      box-shadow: 0 16px 32px rgba(10, 27, 46, .09);
+      padding: 22px 0;
+      transform: translateY(-8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s var(--ease), transform .2s var(--ease);
+      z-index: 90;
+    }
+
+    .search-panel.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      position: relative;
+    }
+
+    .search-row-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--grey-500);
+      pointer-events: none;
+    }
+
+    .search-row input {
+      flex: 1;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-s);
+      padding: 13px 40px 13px 42px;
+      font-size: 15px;
+    }
+
+    .search-row input:focus-visible {
+      outline: none;
+      border-color: var(--blue);
+    }
+
+    .search-row .search-clear {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .search-hint {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    .search-panel .suggest-panel {
+      left: 0;
+      right: 0;
+      top: calc(100% + 6px);
+      width: auto;
+      max-width: none;
+    }
+
+    /* mobile menu */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--grey-50);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      transform: translateX(100%);
+      transition: transform .3s var(--ease);
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mobile-menu-top {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .mobile-menu nav {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .mobile-menu nav a {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--ink);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--grey-100);
+    }
+
+    .mobile-menu-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mobile-menu-footer a {
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .mobile-menu-footer a.btn {
+      color: #fff;
+      font-size: 14px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background-color: var(--navy);
+    }
+
+    .hero-photos {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center 55%;
+      background-repeat: no-repeat;
+      opacity: 0;
+      animation: heroSlideFade 18s ease-in-out infinite;
+    }
+
+    .hero-photo-1 {
+      background-image: url('images/hero-1.webp');
+      animation-delay: 0s;
+    }
+
+    .hero-photo-2 {
+      background-image: url('images/hero-2.webp');
+      animation-delay: 6s;
+    }
+
+    .hero-photo-3 {
+      background-image: url('images/hero-3.webp');
+      animation-delay: 12s;
+    }
+
+    @keyframes heroSlideFade {
+      0% {
+        opacity: 0;
+      }
+
+      8% {
+        opacity: 1;
+      }
+
+      25% {
+        opacity: 1;
+      }
+
+      33% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-photo {
+        animation: none;
+        opacity: 0;
+      }
+
+      .hero-photo-1 {
+        opacity: 1;
+      }
+    }
+
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(155deg, rgba(10, 27, 46, .90) 0%, rgba(7, 62, 120, .84) 32%, rgba(9, 87, 166, .78) 60%, rgba(37, 159, 218, .62) 100%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      padding-top: 88px;
+      padding-bottom: 56px;
+    }
+
+    @media(min-width:640px) {
+      .hero-inner {
+        padding-top: 112px;
+        padding-bottom: 72px;
+      }
+    }
+
+    @media(min-width:900px) {
+      .hero-inner {
+        padding-top: 148px;
+        padding-bottom: 96px;
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(19px, 6.4vw, 60px);
+      margin-top: 0;
+      color: #fff;
+      line-height: 1.15;
+    }
+
+    .hero-title-line {
+      white-space: nowrap;
+    }
+
+    .hero .lead {
+      margin-top: 22px;
+      font-size: 18px;
+      max-width: 520px;
+      color: #C7D6E4;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .hero .btn-primary {
+      background: var(--blue-secondary);
+      color: #062338;
+    }
+
+    .hero .btn-primary:hover {
+      background: #48B2E8;
+    }
+
+    .hero .btn-secondary {
+      border-color: rgba(255, 255, 255, .5);
+      color: #fff;
+    }
+
+    .hero .btn-secondary:hover {
+      background: rgba(255, 255, 255, .12);
+      border-color: #fff;
+    }
+
+    @keyframes heroUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-inner>h1,
+    .hero-inner>.lead,
+    .hero-inner>.hero-cta,
+    .hero-inner>.stat-row {
+      opacity: 0;
+      animation: heroUp .7s var(--ease) forwards;
+    }
+
+    .hero-inner>h1 {
+      animation-delay: .05s;
+    }
+
+    .hero-inner>.lead {
+      animation-delay: .15s;
+    }
+
+    .hero-inner>.hero-cta {
+      animation-delay: .25s;
+    }
+
+    .hero-inner>.stat-row {
+      animation-delay: .35s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-inner>* {
+        opacity: 1;
+        animation: none;
+        transform: none;
+      }
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 44px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 255, 255, .16);
+      max-width: 560px;
+    }
+
+    .stat {
+      border-right: 1px solid rgba(255, 255, 255, .16);
+      padding-right: 16px;
+      min-width: 0;
+    }
+
+    .stat:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+
+    .stat .num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(24px, 3.6vw, 38px);
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+
+    .stat .label {
+      margin-top: 8px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #9FB4C8;
+      line-height: 1.35;
+    }
+
+    /* ===== ABOUT / EDITORIAL ===== */
+    .editorial {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    @media(min-width:900px) {
+      .editorial {
+        grid-template-columns: .9fr 1.1fr;
+        gap: 80px;
+        align-items: start;
+      }
+    }
+
+    .editorial h2 {
+      font-size: clamp(26px, 3.6vw, 38px);
+      margin-top: 14px;
+    }
+
+    .editorial-body p {
+      font-size: 17px;
+      color: var(--ink-soft);
+      margin-bottom: 18px;
+      max-width: 560px;
+    }
+
+    .editorial-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .editorial-body p strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .editorial-block+.editorial-block {
+      margin-top: 64px;
+      padding-top: 64px;
+      border-top: 1px solid var(--grey-100);
+    }
+
+    @media(min-width:900px) {
+      .editorial-block+.editorial-block {
+        margin-top: 96px;
+        padding-top: 96px;
+      }
+    }
+
+    /* ===== COMPETENCES ===== */
+    .comp-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--grey-100);
+      border: 1px solid var(--grey-100);
+    }
+
+    @media(min-width:900px) {
+      .comp-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .comp-panel {
+      background: var(--white);
+      padding: 32px 24px;
+    }
+
+    @media(min-width:900px) {
+      .comp-panel {
+        padding: 44px 36px;
+      }
+    }
+
+    .comp-panel.dark {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .comp-panel .tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    .comp-panel.dark .tag {
+      color: #AEE0F7;
+    }
+
+    .comp-panel h3 {
+      margin-top: 14px;
+      font-size: 24px;
+    }
+
+    .comp-list {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .comp-list li {
+      display: flex;
+      gap: 16px;
+      padding: 16px 0;
+      border-top: 1px solid var(--grey-100);
+      font-size: 15px;
+      color: var(--ink-soft);
+    }
+
+    .comp-panel.dark .comp-list li {
+      border-top-color: rgba(255, 255, 255, .12);
+      color: #C4D2E0;
+    }
+
+    .comp-list li:first-child {
+      border-top: none;
+    }
+
+    .comp-list .idx {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--blue);
+      flex: 0 0 28px;
+      padding-top: 2px;
+    }
+
+    .comp-panel.dark .comp-list .idx {
+      color: #AEE0F7;
+    }
+
+    /* ===== PRODUCTS ===== */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .product-toolbar {
+      margin-bottom: 40px;
+      position: sticky;
+      top: 122px;
+      background: #fff;
+      padding: 16px 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--grey-100);
+    }
+
+    /* Custom dropdown (mobile/tablet) */
+    .family-dropdown {
+      position: relative;
+    }
+
+    @media(min-width:820px) {
+      .family-dropdown {
+        display: none;
+      }
+    }
+
+    .family-dropdown-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 16px;
+      background: #fff;
+      border: 1px solid var(--grey-300);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      transition: border-color .2s var(--ease);
+    }
+
+    .family-dropdown-trigger:hover,
+    .family-dropdown-trigger[aria-expanded="true"] {
+      border-color: var(--blue);
+    }
+
+    .family-dropdown-trigger .fd-label {
+      flex: 1;
+      text-align: left;
+    }
+
+    .family-dropdown-trigger .fd-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--grey-500);
+      background: var(--grey-100);
+      padding: 2px 7px;
+    }
+
+    .family-dropdown-trigger .fd-chevron {
+      color: var(--grey-500);
+      flex: 0 0 auto;
+      transition: transform .2s var(--ease);
+    }
+
+    .family-dropdown-trigger[aria-expanded="true"] .fd-chevron {
+      transform: rotate(180deg);
+      color: var(--blue);
+    }
+
+    .family-dropdown-panel {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 6px);
+      z-index: 30;
+      background: #fff;
+      border: 1px solid var(--grey-100);
+      border-radius: var(--radius-s);
+      box-shadow: 0 16px 32px rgba(10, 27, 46, .14);
+      list-style: none;
+      margin: 0;
+      padding: 6px;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity .18s var(--ease), transform .18s var(--ease);
+    }
+
+    .family-dropdown-panel.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .fd-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 12px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--ink);
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .fd-option:hover,
+    .fd-option.fd-hl {
+      background: var(--blue-tint);
+    }
+
+    .fd-option.active {
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .fd-option-count {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--grey-500);
+    }
+
+    .fd-option.active .fd-option-count {
+      color: var(--blue);
+    }
+
+    .family-nav {
+      display: none;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    @media(min-width:820px) {
+      .family-nav {
+        display: flex;
+      }
+    }
+
+    .family-tab {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      background: #fff;
+      border: 1px solid var(--grey-300);
+      transition: border-color .2s var(--ease), background .2s var(--ease), color .2s var(--ease);
+      text-align: left;
+      position: relative;
+      color: var(--ink);
+    }
+
+    .family-tab:hover {
+      border-color: var(--blue);
+    }
+
+    .family-tab.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    .ft-count {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--grey-500);
+      background: var(--grey-100);
+      padding: 1px 6px;
+      line-height: 1.5;
+    }
+
+    .family-tab.active .ft-count {
+      color: #CFE0EF;
+      background: rgba(255, 255, 255, .18);
+    }
+
+    .ft-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      white-space: nowrap;
+    }
+
+    .search-clear {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      border: none;
+      background: transparent;
+      color: var(--grey-500);
+      font-size: 18px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .search-clear:hover {
+      color: var(--ink);
+      background: var(--grey-100);
+    }
+
+    .suggest-panel {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 6px);
+      background: #fff;
+      border: 1px solid var(--grey-100);
+      border-radius: var(--radius-s);
+      box-shadow: 0 16px 32px rgba(10, 27, 46, .12);
+      z-index: 40;
+      max-height: 340px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .suggest-panel.open {
+      display: block;
+    }
+
+    .suggest-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--grey-100);
+    }
+
+    .suggest-item:last-child {
+      border-bottom: none;
+    }
+
+    .suggest-item:hover,
+    .suggest-item.hl {
+      background: var(--blue-tint);
+    }
+
+    .suggest-item .si-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .suggest-item .si-name mark {
+      background: none;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .suggest-item .si-meta {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--grey-500);
+      white-space: nowrap;
+    }
+
+    .suggest-empty {
+      padding: 16px;
+      font-size: 13.5px;
+      color: var(--ink-soft);
+    }
+
+    .suggest-footer {
+      padding: 10px 16px;
+      font-size: 12.5px;
+      color: var(--blue);
+      border-top: 1px solid var(--grey-100);
+      font-weight: 600;
+    }
+
+    .family-block {
+      margin-bottom: 88px;
+      scroll-margin-top: 222px;
+    }
+
+    .family-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .family-head {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--grey-100);
+    }
+
+    .family-head h3 {
+      font-size: 26px;
+    }
+
+    .family-head .lead {
+      font-size: 15px;
+      color: var(--ink-soft);
+      max-width: 560px;
+    }
+
+    .family-code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--grey-500);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media(min-width:640px) {
+      .product-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(min-width:1080px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .p-card {
+      background: #fff;
+      border: 1px solid var(--grey-100);
+      border-radius: var(--radius-l);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform .2s var(--ease), border-color .2s var(--ease), box-shadow .2s var(--ease);
+    }
+
+    .p-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--blue);
+      box-shadow: 0 14px 30px rgba(10, 27, 46, .07);
+    }
+
+    .p-card.search-flash {
+      animation: searchFlash 1.6s var(--ease);
+    }
+
+    @keyframes searchFlash {
+      0% {
+        box-shadow: 0 0 0 3px var(--blue-secondary);
+        border-color: var(--blue-secondary);
+      }
+
+      70% {
+        box-shadow: 0 0 0 3px var(--blue-secondary);
+        border-color: var(--blue-secondary);
+      }
+
+      100% {
+        box-shadow: none;
+        border-color: var(--grey-100);
+      }
+    }
+
+    .p-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .supplier-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--grey-300);
+      border-radius: 3px;
+      padding: 6px;
+      background: #fff;
+      width: 100px;
+      height: 36px;
+      flex: 0 0 auto;
+    }
+
+    .supplier-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 2px;
+    }
+
+    .supplier-chip--synox {
+      background: #231714;
+      border-color: #231714;
+    }
+
+    .supplier-chip--mpc {
+      background: #1C2642;
+      border-color: #1C2642;
+    }
+
+    .p-cat {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    .p-card h4 {
+      font-size: 19px;
+      margin-top: 2px;
+      font-weight: 700;
+    }
+
+    .p-card .desc {
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      flex: 1;
+    }
+
+    .p-card-actions {
+      display: flex;
+      gap: 10px;
+      padding-top: 16px;
+      border-top: 1px solid var(--grey-100);
+      flex-wrap: wrap;
+    }
+
+    .p-card-actions .btn {
+      flex: 1;
+      padding: 11px 14px;
+      font-size: 12.5px;
+    }
+
+    .no-results {
+      display: none;
+      padding: 48px 0;
+      text-align: center;
+      color: var(--ink-soft);
+      font-size: 15px;
+    }
+
+    .no-results.show {
+      display: block;
+    }
+
+    /* ===== PARTNERS ===== */
+    .marquee-wrap {
+      overflow: hidden;
+      position: relative;
+      padding: 36px 0;
+    }
+
+    .marquee-wrap::before,
+    .marquee-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      z-index: 2;
+    }
+
+    .marquee-wrap::before {
+      left: 0;
+      background: linear-gradient(90deg, #fff, transparent);
+    }
+
+    .marquee-wrap::after {
+      right: 0;
+      background: linear-gradient(270deg, #fff, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 38s linear infinite;
+    }
+
+    .marquee-wrap:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .partner-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 76px;
+      width: 170px;
+      border: 1px solid var(--grey-100);
+      border-radius: var(--radius-s);
+      background: #fff;
+      padding: 14px 22px;
+      flex: 0 0 auto;
+      margin-right: 64px;
+    }
+
+    .partner-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .partner-logo--mpc {
+      background: #1C2642;
+      border-color: #1C2642;
+    }
+
+    .partner-logo--synox {
+      background: #231714;
+      border-color: #231714;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-grid {
+      max-width: 560px;
+    }
+
+    .contact-info-list {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-info-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .contact-info-item .ic {
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      border-radius: var(--radius-s);
+      background: rgba(255, 255, 255, .08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue-secondary);
+    }
+
+    .contact-info-item .t {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--blue-secondary);
+    }
+
+    .contact-info-item .v {
+      margin-top: 4px;
+      font-size: 15.5px;
+      color: #fff;
+    }
+
+    .contact-cta-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    @media(min-width:520px) {
+      .contact-cta-row {
+        flex-direction: row;
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--grey-50);
+      color: var(--ink);
+      padding: 72px 0 32px;
+      border-top: 1px solid var(--grey-100);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    @media(min-width:900px) {
+      .footer-grid {
+        grid-template-columns: 1.3fr .8fr .9fr;
+        gap: 64px;
+      }
+    }
+
+    .footer-rule {
+      width: 44px;
+      height: 2px;
+      background: var(--blue);
+      margin: 22px 0;
+    }
+
+    .footer-brand p {
+      color: var(--ink-soft);
+      font-size: 14.5px;
+      max-width: 340px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-col a {
+      font-size: 14.5px;
+      color: var(--ink-soft);
+    }
+
+    .footer-col a:hover {
+      color: var(--blue);
+    }
+
+    .footer-contact-item {
+      margin-bottom: 16px;
+    }
+
+    .footer-contact-item .l {
+      font-size: 11.5px;
+      color: var(--blue);
+      font-family: var(--font-mono);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .footer-contact-item .v {
+      margin-top: 4px;
+      font-size: 14.5px;
+      color: var(--ink);
+    }
+
+    .footer-bottom {
+      margin-top: 64px;
+      padding-top: 28px;
+      border-top: 1px solid var(--grey-100);
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    /* reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-stagger .reveal-item {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .6s var(--ease), transform .6s var(--ease);
+    }
+
+    .reveal-stagger.in .reveal-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-stagger.in .reveal-item:nth-child(1) {
+      transition-delay: .02s;
+    }
+
+    .reveal-stagger.in .reveal-item:nth-child(2) {
+      transition-delay: .08s;
+    }
+
+    .reveal-stagger.in .reveal-item:nth-child(3) {
+      transition-delay: .14s;
+    }
+
+    .reveal-stagger.in .reveal-item:nth-child(4) {
+      transition-delay: .2s;
+    }
+
+    .reveal-stagger.in .reveal-item:nth-child(5) {
+      transition-delay: .26s;
+    }
+
+    .reveal-stagger.in .reveal-item:nth-child(6) {
+      transition-delay: .32s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-stagger .reveal-item {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 0;
+      background: var(--blue);
+      color: #fff;
+      padding: 10px 16px;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      left: 16px;
+      top: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#main" class="skip-link" data-i18n="a11y.skipLink">Aller au contenu principal</a>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="container header-inner">
+      <a href="#top" class="logo" aria-label="ULTRACHEM — accueil">
+        <img src="images/LOGO_ULTRACHEM.webp" alt="ULTRACHEM" class="logo-img">
+      </a>
+
+      <nav class="nav-desktop" aria-label="Navigation principale">
+        <a href="#apropos" data-i18n="nav.apropos">À propos</a>
+        <a href="#produits" data-i18n="nav.produits">Produits</a>
+        <a href="#partenaires" data-i18n="nav.partenaires">Partenaires</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="lang-switch" id="langSwitch" data-active="fr" role="group"
+          aria-label="Choix de la langue / Language">
+          <button type="button" class="lang-option active" data-lang="fr" aria-pressed="true" title="Français">
+            <svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="1" height="2" x="0" fill="#0055A4" />
+              <rect width="1" height="2" x="1" fill="#FFFFFF" />
+              <rect width="1" height="2" x="2" fill="#EF4135" />
+            </svg>
+            <span class="sr-only">Français</span>
+          </button>
+          <button type="button" class="lang-option" data-lang="en" aria-pressed="false" title="English">
+            <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <clipPath id="ukClip">
+                  <rect width="60" height="40" />
+                </clipPath>
+              </defs>
+              <g clip-path="url(#ukClip)">
+                <rect width="60" height="40" fill="#00247D" />
+                <path d="M0,0 L60,40 M60,0 L0,40" stroke="#FFFFFF" stroke-width="8" />
+                <path d="M0,0 L60,40 M60,0 L0,40" stroke="#CF142B" stroke-width="3" />
+                <path d="M30,0 V40 M0,20 H60" stroke="#FFFFFF" stroke-width="14" />
+                <path d="M30,0 V40 M0,20 H60" stroke="#CF142B" stroke-width="8" />
+              </g>
+            </svg>
+            <span class="sr-only">English</span>
+          </button>
+          <span class="lang-thumb" aria-hidden="true"></span>
+        </div>
+        <button class="icon-btn" id="searchToggle" aria-expanded="false" aria-controls="searchPanel"
+          aria-label="Ouvrir la recherche" data-i18n-aria="aria.searchOpen">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </button>
+        <button class="icon-btn hamburger" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu"
+          aria-label="Ouvrir le menu" data-i18n-aria="aria.menuOpen">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="search-panel" id="searchPanel">
+      <div class="container">
+        <div class="search-row">
+          <svg class="search-row-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="text" id="headerSearchInput" placeholder="Rechercher un produit, une famille ou un fournisseur…"
+            aria-label="Recherche globale ULTRACHEM" autocomplete="off" role="combobox" aria-expanded="false"
+            aria-controls="headerSuggestions" data-i18n-placeholder="search.placeholder">
+          <button type="button" id="navSearchClear" class="search-clear" aria-label="Effacer la recherche" hidden
+            data-i18n-aria="aria.searchClear">&times;</button>
+          <div class="suggest-panel" id="headerSuggestions" role="listbox"></div>
+        </div>
+        <p class="search-hint" data-i18n="search.hint">Ex. « PVA 950 F », « pigments organiques », « TRONOX »</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-top">
+      <button class="icon-btn" id="menuClose" aria-label="Fermer le menu" data-i18n-aria="aria.menuClose">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+    <nav>
+      <a href="#apropos" data-i18n="nav.apropos">À propos</a>
+      <a href="#produits" data-i18n="nav.produits">Produits</a>
+      <a href="#partenaires" data-i18n="nav.partenaires">Partenaires</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="mobile-menu-footer">
+      <a href="tel:+21626146655">+216 26 146 655</a>
+      <a href="mailto:contact@ultrachem.tn">contact@ultrachem.tn</a>
+      <a href="#" class="btn btn-primary btn-quote-generic" style="margin-top:14px;"
+        data-i18n="cta.quoteGeneric">Demander un devis</a>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="top">
+      <div class="hero-photos" aria-hidden="true">
+        <div class="hero-photo hero-photo-1"></div>
+        <div class="hero-photo hero-photo-2"></div>
+        <div class="hero-photo hero-photo-3"></div>
+      </div>
+      <div class="hero-gradient" aria-hidden="true"></div>
+
+      <div class="container hero-inner">
+        <h1><span class="hero-title-line" data-i18n="hero.titleLine1">Émulsions & additifs</span><br><span
+            data-i18n="hero.titleLine2">pour peintures</span></h1>
+        <p class="lead" data-i18n="hero.lead">Fournisseur d'émulsions et d'additifs de haute précision pour l'industrie
+          de la peinture.</p>
+        <div class="hero-cta">
+          <a href="#produits" class="btn btn-primary" data-i18n="cta.discoverProducts">Découvrir nos produits</a>
+          <a href="#" class="btn btn-secondary btn-quote-generic" data-i18n="cta.quoteGeneric">Demander un devis</a>
+        </div>
+        <div class="stat-row" id="statRow">
+          <div class="stat">
+            <div class="num"><span class="num-count" data-count="9">0</span>+</div>
+            <div class="label" data-i18n="stat.partners">Partenaires stratégiques</div>
+          </div>
+          <div class="stat">
+            <div class="num"><span class="num-count" data-count="8">0</span>+</div>
+            <div class="label" data-i18n="stat.families">Familles de produits</div>
+          </div>
+          <div class="stat">
+            <div class="num">ISO</div>
+            <div class="label" data-i18n="stat.isoLabel">Standards qualité partenaires</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT / EXPERTISE ===== -->
+    <section class="section" id="apropos">
+      <div class="container">
+        <div class="editorial-block editorial reveal">
+          <div>
+            <p class="eyebrow" data-i18n="about.eyebrow">À PROPOS</p>
+            <h2>ULTRACHEM</h2>
+          </div>
+          <div class="editorial-body">
+            <p data-i18n="about.p1">ULTRACHEM est une société spécialisée dans la distribution de produits chimiques
+              pour l'industrie de la peinture.</p>
+            <p data-i18n="about.p2">Nous connectons nos clients aux meilleurs fournisseurs internationaux avec un
+              service commercial et technique de haut niveau.</p>
+          </div>
+        </div>
+
+        <div class="editorial-block editorial reveal">
+          <div>
+            <p class="eyebrow" data-i18n="positioning.eyebrow">POSITIONNEMENT</p>
+            <h2 data-i18n="positioning.title">Notre positionnement</h2>
+          </div>
+          <div class="editorial-body">
+            <p data-i18n="positioning.p1">Nous sommes un acteur de confiance dans la distribution d'émulsions et
+              d'additifs techniques.</p>
+            <p data-i18n-html="positioning.p2">Notre double compétence — commerciale et technique — nous permet
+              d'accompagner nos clients dans leurs choix stratégiques, <strong>de la sélection des matières premières à
+                l'optimisation de leurs formules.</strong></p>
+          </div>
+        </div>
+
+        <div class="editorial-block editorial reveal">
+          <div>
+            <p class="eyebrow" data-i18n="engagement.eyebrow">ENGAGEMENT</p>
+            <h2 data-i18n="engagement.title">Notre engagement</h2>
+          </div>
+          <div class="editorial-body">
+            <p data-i18n="engagement.p1">Chaque projet nécessite une approche adaptée.</p>
+            <p data-i18n-html="engagement.p2">Grâce à notre connaissance du terrain commercial, nous garantissons
+              <strong>réactivité, traçabilité et rigueur</strong> dans chaque étape de notre collaboration.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMPETENCES ===== -->
+    <section class="reveal">
+      <div class="comp-grid">
+        <div class="comp-panel">
+          <span class="tag" data-i18n="comp.commercialTag">Compétences commerciales</span>
+          <ul class="comp-list" style="margin-top:28px;">
+            <li><span class="idx">01</span><span data-i18n="comp.c1">Maîtrise des techniques de vente</span></li>
+            <li><span class="idx">02</span><span data-i18n="comp.c2">Connaissance des produits et du marché</span></li>
+            <li><span class="idx">03</span><span data-i18n="comp.c3">Capacité d'adaptation et d'organisation</span></li>
+            <li><span class="idx">04</span><span data-i18n="comp.c4">Connaissance et respect de la politique
+                commerciale</span></li>
+          </ul>
+        </div>
+        <div class="comp-panel dark">
+          <span class="tag" data-i18n="comp.technicalTag">Compétences techniques</span>
+          <ul class="comp-list" style="margin-top:28px;">
+            <li><span class="idx">01</span><span data-i18n="comp.t1">Accompagnement des formulateurs en phase de
+                sélection produit</span></li>
+            <li><span class="idx">02</span><span data-i18n="comp.t2">Lecture et interprétation des fiches techniques
+                fournisseurs</span></li>
+            <li><span class="idx">03</span><span data-i18n="comp.t3">Documentation et traçabilité des références
+                commercialisées</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRODUITS ===== -->
+    <section class="section" id="produits">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow" data-i18n="products.eyebrow">CATALOGUE</p>
+          <h2 data-i18n="products.title">Nos produits</h2>
+          <p class="lead" data-i18n="products.lead">Des matières premières sélectionnées pour répondre aux exigences
+            techniques des peintures.</p>
+        </div>
+
+        <div class="product-toolbar">
+          <div class="family-dropdown">
+            <button type="button" class="family-dropdown-trigger" id="familyDropdownBtn" aria-haspopup="listbox"
+              aria-expanded="false" aria-controls="familyDropdownPanel">
+              <span class="fd-label" id="familyDropdownLabel" data-i18n="family.all">Toutes les familles</span>
+              <span class="fd-count" id="familyDropdownCount">23</span>
+              <svg class="fd-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+            <ul class="family-dropdown-panel" id="familyDropdownPanel" role="listbox"
+              aria-label="Filtrer par famille de produits" data-i18n-aria="aria.filterFamily">
+              <li role="option" aria-selected="true" data-family="all" class="fd-option active"><span
+                  data-i18n="family.all">Toutes les familles</span><span class="fd-option-count">23</span></li>
+              <li role="option" aria-selected="false" data-family="emulsions" class="fd-option"><span
+                  data-i18n="family.emulsions.name">Émulsions</span><span class="fd-option-count">5</span></li>
+              <li role="option" aria-selected="false" data-family="biocides" class="fd-option"><span
+                  data-i18n="family.biocides.name">Biocides</span><span class="fd-option-count">1</span></li>
+              <li role="option" aria-selected="false" data-family="antimousse" class="fd-option"><span
+                  data-i18n="family.antimousse.name">Agent antimousse</span><span class="fd-option-count">2</span></li>
+              <li role="option" aria-selected="false" data-family="tio2" class="fd-option"><span
+                  data-i18n="family.tio2.name">Dioxyde de titane</span><span class="fd-option-count">2</span></li>
+              <li role="option" aria-selected="false" data-family="pig-org" class="fd-option"><span
+                  data-i18n="family.pig-org.name">Pigments organiques</span><span class="fd-option-count">5</span></li>
+              <li role="option" aria-selected="false" data-family="pig-inorg" class="fd-option"><span
+                  data-i18n="family.pig-inorg.name">Pigments inorganiques</span><span class="fd-option-count">4</span>
+              </li>
+              <li role="option" aria-selected="false" data-family="epaississant" class="fd-option"><span
+                  data-i18n="family.epaississant.name">Agent épaississant</span><span class="fd-option-count">3</span>
+              </li>
+              <li role="option" aria-selected="false" data-family="dispersant" class="fd-option"><span
+                  data-i18n="family.dispersant.name">Agent dispersant</span><span class="fd-option-count">1</span></li>
+            </ul>
+          </div>
+          <div class="family-nav" id="familyChips" role="tablist" aria-label="Filtrer par famille de produits"
+            data-i18n-aria="aria.filterFamily">
+            <button class="family-tab active" data-family="all" role="tab" aria-selected="true">
+              <span class="ft-label" data-i18n="family.all">Toutes les familles</span><span class="ft-count">23</span>
+            </button>
+            <button class="family-tab" data-family="emulsions" role="tab" aria-selected="false">
+              <span class="ft-label" data-i18n="family.emulsions.name">Émulsions</span><span class="ft-count">5</span>
+            </button>
+            <button class="family-tab" data-family="biocides" role="tab" aria-selected="false">
+              <span class="ft-label" data-i18n="family.biocides.name">Biocides</span><span class="ft-count">1</span>
+            </button>
+            <button class="family-tab" data-family="antimousse" role="tab" aria-selected="false">
+              <span class="ft-label" data-i18n="family.antimousse.name">Agent antimousse</span><span
+                class="ft-count">2</span>
+            </button>
+            <button class="family-tab" data-family="tio2" role="tab" aria-selected="false">
+              <span class="ft-label" data-i18n="family.tio2.name">Dioxyde de titane</span><span
+                class="ft-count">2</span>
+            </button>
+            <button class="family-tab" data-family="pig-org" role="tab" aria-selected="false">
+              <span class="ft-label" data-i18n="family.pig-org.name">Pigments organiques</span><span
+                class="ft-count">5</span>
+            </button>
+            <button class="family-tab" data-family="pig-inorg" role="tab" aria-selected="false">
+              <span class="ft-label" data-i18n="family.pig-inorg.name">Pigments inorganiques</span><span
+                class="ft-count">4</span>
+            </button>
+            <button class="family-tab" data-family="epaississant" role="tab" aria-selected="false">
+              <span class="ft-label" data-i18n="family.epaississant.name">Agent épaississant</span><span
+                class="ft-count">3</span>
+            </button>
+            <button class="family-tab" data-family="dispersant" role="tab" aria-selected="false">
+              <span class="ft-label" data-i18n="family.dispersant.name">Agent dispersant</span><span
+                class="ft-count">1</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- EMULSIONS -->
+        <div class="family-block" data-family="emulsions" id="fam-emulsions">
+          <div class="family-head">
+            <span class="family-code" data-i18n="family.emulsions.code">GRP‑01 · PERFORMANCE / ADHÉRENCE /
+              STABILITÉ</span>
+            <h3 data-i18n="family.emulsions.name">Émulsions</h3>
+            <p class="lead" data-i18n="family.emulsions.lead">Solutions pour performance, adhérence et stabilité des
+              peintures.</p>
+          </div>
+          <div class="product-grid">
+
+            <article class="p-card" data-name="pva 950 f mpc prokim emulsions">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.emulsions.name">Émulsions</span><span
+                  class="supplier-chip supplier-chip--mpc"><img src="images/LOGO_MPC_PROKIM.webp" alt="MPC Prokim"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>PVA 950 F</h4>
+              <p class="desc" data-i18n="prod.p01.desc">Emulsion vinylique.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+
+            <article class="p-card" data-name="vac 203 p mpc prokim emulsions">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.emulsions.name">Émulsions</span><span
+                  class="supplier-chip supplier-chip--mpc"><img src="images/LOGO_MPC_PROKIM.webp" alt="MPC Prokim"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>VAC 203 P</h4>
+              <p class="desc" data-i18n="prod.p02.desc">Emulsion vinyle acrylique.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+
+            <article class="p-card" data-name="prokil s 330 p mpc prokim emulsions">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.emulsions.name">Émulsions</span><span
+                  class="supplier-chip supplier-chip--mpc"><img src="images/LOGO_MPC_PROKIM.webp" alt="MPC Prokim"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>PROKIL S 330 P</h4>
+              <p class="desc" data-i18n="prod.p03.desc">Emulsion styrène acrylique.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+
+            <article class="p-card" data-name="pa 500 mpc prokim emulsions">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.emulsions.name">Émulsions</span><span
+                  class="supplier-chip supplier-chip--mpc"><img src="images/LOGO_MPC_PROKIM.webp" alt="MPC Prokim"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>PROKIL PA 500</h4>
+              <p class="desc" data-i18n="prod.p04.desc">Emulsion pure acrylique.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+
+            <article class="p-card" data-name="prokil sa 370 b mpc prokim emulsions">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.emulsions.name">Émulsions</span><span
+                  class="supplier-chip supplier-chip--mpc"><img src="images/LOGO_MPC_PROKIM.webp" alt="MPC Prokim"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>PROKIL SA 370 B</h4>
+              <p class="desc" data-i18n="prod.p05.desc">Emulsion styrène acrylique haute performance.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- BIOCIDES -->
+        <div class="family-block" data-family="biocides" id="fam-biocides">
+          <div class="family-head">
+            <span class="family-code" data-i18n="family.biocides.code">GRP‑02 · PROTECTION / STABILITÉ</span>
+            <h3 data-i18n="family.biocides.name">Biocides</h3>
+            <p class="lead" data-i18n="family.biocides.lead">Protection longue durée des formulations aqueuses contre
+              les contaminations.</p>
+          </div>
+          <div class="product-grid">
+            <article class="p-card" data-name="biopol jm 15 chemipol biocides">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.biocides.name">Biocides</span><span
+                  class="supplier-chip"><img src="images/LOGO_CHEMIPOL_LOGO.webp" alt="Chemipol" class="supplier-logo"
+                    loading="lazy"></span></div>
+              <h4>BIOPOL JM 15</h4>
+              <p class="desc" data-i18n="prod.p06.desc">Biocide à large spectre pour la protection des produits
+                aquatiques.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ANTIMOUSSE -->
+        <div class="family-block" data-family="antimousse" id="fam-antimousse">
+          <div class="family-head">
+            <span class="family-code" data-i18n="family.antimousse.code">GRP‑03 · CONTRÔLE / SURFACE</span>
+            <h3 data-i18n="family.antimousse.name">Agent antimousse</h3>
+            <p class="lead" data-i18n="family.antimousse.lead">Contrôle de mousse en fabrication et application pour
+              finitions régulières.</p>
+          </div>
+          <div class="product-grid">
+            <article class="p-card" data-name="densipol wo 2402 chemipol antimousse">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.antimousse.name">Agent
+                  antimousse</span><span class="supplier-chip"><img src="images/LOGO_CHEMIPOL_LOGO.webp" alt="Chemipol"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>DENSIPOL WO 2402</h4>
+              <p class="desc" data-i18n="prod.p07.desc">Antimousse sans silicone pour peintures mates et encres à base
+                d'eau.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+            <article class="p-card" data-name="serdas df 7010 oleo antimousse">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.antimousse.name">Agent
+                  antimousse</span><span class="supplier-chip"><img src="images/LOGO_OLEO.webp" alt="Oleo"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>SERDAS DF 7010</h4>
+              <p class="desc" data-i18n="prod.p08.desc">Antimousse de haute qualité, il compose d'une dispersion
+                ultrafine de cire dans de l'huile minérale.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- TIO2 -->
+        <div class="family-block" data-family="tio2" id="fam-tio2">
+          <div class="family-head">
+            <span class="family-code" data-i18n="family.tio2.code">GRP‑04 · BLANCHEUR / OPACITÉ</span>
+            <h3 data-i18n="family.tio2.name">Dioxyde de titane</h3>
+            <p class="lead" data-i18n="family.tio2.lead">Pigments premium pour opacité, blancheur et résistance des
+              revêtements.</p>
+          </div>
+          <div class="product-grid">
+            <article class="p-card" data-name="tikon 35 tronox tio2 dioxyde de titane">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.tio2.name">Dioxyde de titane</span><span
+                  class="supplier-chip"><img src="images/LOGO_TRONOX.webp" alt="Tronox" class="supplier-logo"
+                    loading="lazy"></span></div>
+              <h4>TIKON 35</h4>
+              <p class="desc" data-i18n="prod.p09.desc">Pigment rutile à usage général basé sur procédé sulfate.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+            <article class="p-card" data-name="blr 895 lb group tio2 dioxyde de titane">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.tio2.name">Dioxyde de titane</span><span
+                  class="supplier-chip"><img src="images/LOGO_LB_GROUP.webp" alt="LB Group" class="supplier-logo"
+                    loading="lazy"></span></div>
+              <h4>BLR 895</h4>
+              <p class="desc" data-i18n="prod.p10.desc">Pigment polyvalent fabriqué par procédé au chlorure.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- PIGMENTS ORGANIQUES -->
+        <div class="family-block" data-family="pig-org" id="fam-pig-org">
+          <div class="family-head">
+            <span class="family-code" data-i18n="family.pig-org.code">GRP‑05 · COULEUR / DÉCORATION</span>
+            <h3 data-i18n="family.pig-org.name">Pigments organiques</h3>
+            <p class="lead" data-i18n="family.pig-org.lead">Nuances intérieures avec rendu visuel stable et attractif.
+            </p>
+          </div>
+          <div class="product-grid">
+            <article class="p-card" data-name="iridesium 173 sw pritty pigments organiques">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.pig-org.name">Pigments
+                  organiques</span><span class="supplier-chip"><img src="images/LOGO_PRITTY.webp" alt="Pritty"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>IRIDESIUM 173 SW</h4>
+              <p class="desc" data-i18n="prod.p11.desc">Pigment IRIDESIUM pour applications intérieures.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+            <article class="p-card" data-name="iridesium 205 pritty pigments organiques">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.pig-org.name">Pigments
+                  organiques</span><span class="supplier-chip"><img src="images/LOGO_PRITTY.webp" alt="Pritty"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>IRIDESIUM 205</h4>
+              <p class="desc" data-i18n="prod.p12.desc">Pigment organique pour usage intérieur.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+            <article class="p-card" data-name="iridesium 103 pritty pigments organiques">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.pig-org.name">Pigments
+                  organiques</span><span class="supplier-chip"><img src="images/LOGO_PRITTY.webp" alt="Pritty"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>IRIDESIUM 103</h4>
+              <p class="desc" data-i18n="prod.p13.desc">Gamme IRIDESIUM pour applications intérieures.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+            <article class="p-card" data-name="iridesium 305 b pritty pigments organiques">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.pig-org.name">Pigments
+                  organiques</span><span class="supplier-chip"><img src="images/LOGO_PRITTY.webp" alt="Pritty"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>IRIDESIUM 305 B</h4>
+              <p class="desc" data-i18n="prod.p14.desc">Pigment organique pour peinture.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+            <article class="p-card" data-name="iridesium 500 pritty pigments organiques">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.pig-org.name">Pigments
+                  organiques</span><span class="supplier-chip"><img src="images/LOGO_PRITTY.webp" alt="Pritty"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>IRIDESIUM 500</h4>
+              <p class="desc" data-i18n="prod.p15.desc">Référence IRIDESIUM pour finitions intérieures.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- PIGMENTS INORGANIQUES -->
+        <div class="family-block" data-family="pig-inorg" id="fam-pig-inorg">
+          <div class="family-head">
+            <span class="family-code" data-i18n="family.pig-inorg.code">GRP‑06 · RÉSISTANCE / STABILITÉ</span>
+            <h3 data-i18n="family.pig-inorg.name">Pigments inorganiques</h3>
+            <p class="lead" data-i18n="family.pig-inorg.lead">Excellente tenue à la chaleur, lumière et migration pour
+              usages exigeants.</p>
+          </div>
+          <div class="product-grid">
+            <article class="p-card" data-name="synox yellow 920 pigments inorganiques">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.pig-inorg.name">Pigments
+                  inorganiques</span><span class="supplier-chip supplier-chip--synox"><img src="images/LOGO_SYNOX.webp"
+                    alt="Synox" class="supplier-logo" loading="lazy"></span></div>
+              <h4>SYNOX YELLOW 920</h4>
+              <p class="desc" data-i18n="prod.p16.desc">Haute tenue à la chaleur, lumière et migration.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+            <article class="p-card" data-name="synox brown 4660 pigments inorganiques">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.pig-inorg.name">Pigments
+                  inorganiques</span><span class="supplier-chip supplier-chip--synox"><img src="images/LOGO_SYNOX.webp"
+                    alt="Synox" class="supplier-logo" loading="lazy"></span></div>
+              <h4>SYNOX BROWN 4660</h4>
+              <p class="desc" data-i18n="prod.p17.desc">Pigment inorganique résistant et stable.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+            <article class="p-card" data-name="synox black 4330 pigments inorganiques">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.pig-inorg.name">Pigments
+                  inorganiques</span><span class="supplier-chip supplier-chip--synox"><img src="images/LOGO_SYNOX.webp"
+                    alt="Synox" class="supplier-logo" loading="lazy"></span></div>
+              <h4>SYNOX BLACK 4330</h4>
+              <p class="desc" data-i18n="prod.p18.desc">Pigment inorganique avec excellente résistance.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+            <article class="p-card" data-name="synox red 4130 pigments inorganiques">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.pig-inorg.name">Pigments
+                  inorganiques</span><span class="supplier-chip supplier-chip--synox"><img src="images/LOGO_SYNOX.webp"
+                    alt="Synox" class="supplier-logo" loading="lazy"></span></div>
+              <h4>SYNOX RED 4130</h4>
+              <p class="desc" data-i18n="prod.p19.desc">Série Synox haute qualité, excellente tenue.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- EPAISSISSANT -->
+        <div class="family-block" data-family="epaississant" id="fam-epaississant">
+          <div class="family-head">
+            <span class="family-code" data-i18n="family.epaississant.code">GRP‑07 · RHÉOLOGIE / CONSISTANCE</span>
+            <h3 data-i18n="family.epaississant.name">Agent épaississant</h3>
+            <p class="lead" data-i18n="family.epaississant.lead">Amélioration de la consistance, rétention d'eau et
+              stabilité des formules.</p>
+          </div>
+          <div class="product-grid">
+            <article class="p-card" data-name="bermocoll 10000 epaississant">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.epaississant.name">Agent
+                  épaississant</span><span class="supplier-chip"><img src="images/LOGO_BERMOCOLL.webp" alt="Bermocoll"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>BERMOCOLL 10 000</h4>
+              <p class="desc" data-i18n="prod.p20.desc">Référence pour formulations à base d'eau.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+            <article class="p-card" data-name="bermocoll 8000 epaississant">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.epaississant.name">Agent
+                  épaississant</span><span class="supplier-chip"><img src="images/LOGO_BERMOCOLL.webp" alt="Bermocoll"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>BERMOCOLL 8000</h4>
+              <p class="desc" data-i18n="prod.p21.desc">Amélioration de la consistance, stabilité et rétention d'eau.
+              </p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+            <article class="p-card" data-name="bermocoll 7000 epaississant">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.epaississant.name">Agent
+                  épaississant</span><span class="supplier-chip"><img src="images/LOGO_BERMOCOLL.webp" alt="Bermocoll"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>BERMOCOLL 7000</h4>
+              <p class="desc" data-i18n="prod.p22.desc">Éther de cellulose non ionique soluble dans l'eau.</p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+          </div>
+        </div>
+
+        <!-- DISPERSANT -->
+        <div class="family-block" data-family="dispersant" id="fam-dispersant">
+          <div class="family-head">
+            <span class="family-code" data-i18n="family.dispersant.code">GRP‑08 · DISPERSION / HOMOGÉNÉITÉ</span>
+            <h3 data-i18n="family.dispersant.name">Agent dispersant</h3>
+            <p class="lead" data-i18n="family.dispersant.lead">Dispersion maîtrisée des charges et pigments pour un film
+              homogène.</p>
+          </div>
+          <div class="product-grid">
+            <article class="p-card" data-name="kam dca p90 kam kimya dispersant">
+              <div class="p-card-top"><span class="p-cat" data-i18n="family.dispersant.name">Agent
+                  dispersant</span><span class="supplier-chip"><img src="images/LOGO-KAM-KIMYA.webp" alt="Kam Kimya"
+                    class="supplier-logo" loading="lazy"></span></div>
+              <h4>KAM DCA P90</h4>
+              <p class="desc" data-i18n="prod.p23.desc">Additif de contrôle de dispersion pour revêtements à base d'eau.
+              </p>
+              <div class="p-card-actions"><a href="#" class="btn btn-primary btn-quote" data-i18n="cta.quote">Demande de
+                  devis</a><a href="#" class="btn btn-secondary btn-datasheet" data-i18n="cta.datasheet">Fiche
+                  technique</a></div>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== PARTENAIRES ===== -->
+    <section class="section section-grey" id="partenaires">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow" data-i18n="partners.eyebrow">PARTENAIRES</p>
+          <h2 data-i18n="partners.title">Des leaders pour mieux vous assurer</h2>
+        </div>
+      </div>
+      <div class="marquee-wrap reveal">
+        <div class="marquee-track">
+          <span class="partner-logo partner-logo--mpc"><img src="images/LOGO_MPC_PROKIM.webp" alt="MPC Prokim"
+              loading="lazy"></span>
+          <span class="partner-logo"><img src="images/LOGO_BERMOCOLL.webp" alt="Bermocoll" loading="lazy"></span>
+          <span class="partner-logo"><img src="images/LOGO_CHEMIPOL_LOGO.webp" alt="Chemipol" loading="lazy"></span>
+          <span class="partner-logo"><img src="images/LOGO_OLEO.webp" alt="Oleo" loading="lazy"></span>
+          <span class="partner-logo"><img src="images/LOGO_PRITTY.webp" alt="Pritty" loading="lazy"></span>
+          <span class="partner-logo"><img src="images/LOGO_TRONOX.webp" alt="Tronox" loading="lazy"></span>
+          <span class="partner-logo"><img src="images/LOGO-KAM-KIMYA.webp" alt="Kam Kimya" loading="lazy"></span>
+          <span class="partner-logo"><img src="images/LOGO_LB_GROUP.webp" alt="LB Group" loading="lazy"></span>
+          <span class="partner-logo partner-logo--synox"><img src="images/LOGO_SYNOX.webp" alt="Synox"
+              loading="lazy"></span>
+          <span class="partner-logo partner-logo--mpc" aria-hidden="true"><img src="images/LOGO_MPC_PROKIM.webp" alt=""
+              loading="lazy"></span>
+          <span class="partner-logo" aria-hidden="true"><img src="images/LOGO_BERMOCOLL.webp" alt=""
+              loading="lazy"></span>
+          <span class="partner-logo" aria-hidden="true"><img src="images/LOGO_CHEMIPOL_LOGO.webp" alt=""
+              loading="lazy"></span>
+          <span class="partner-logo" aria-hidden="true"><img src="images/LOGO_OLEO.webp" alt="" loading="lazy"></span>
+          <span class="partner-logo" aria-hidden="true"><img src="images/LOGO_PRITTY.webp" alt="" loading="lazy"></span>
+          <span class="partner-logo" aria-hidden="true"><img src="images/LOGO_TRONOX.webp" alt="" loading="lazy"></span>
+          <span class="partner-logo" aria-hidden="true"><img src="images/LOGO-KAM-KIMYA.webp" alt=""
+              loading="lazy"></span>
+          <span class="partner-logo" aria-hidden="true"><img src="images/LOGO_LB_GROUP.webp" alt=""
+              loading="lazy"></span>
+          <span class="partner-logo partner-logo--synox" aria-hidden="true"><img src="images/LOGO_SYNOX.webp" alt=""
+              loading="lazy"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="section section-navy" id="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow" style="color:var(--blue-secondary)" data-i18n="contact.eyebrow">CONTACT</p>
+          <h2 style="color:#fff" data-i18n="contact.title">Contactez-nous</h2>
+          <p class="lead" data-i18n="contact.lead">ULTRACHEM est à votre disposition pour répondre à vos besoins.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="reveal">
+            <div class="contact-info-list">
+              <div class="contact-info-item">
+                <span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg></span>
+                <div>
+                  <div class="t" data-i18n="contact.addressLabel">Adresse</div>
+                  <div class="v">Avenue Lakhmi, Imm La Perla 2, 6ème étage — Sfax, Tunisie</div>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z" />
+                  </svg></span>
+                <div>
+                  <div class="t" data-i18n="contact.phoneLabel">Téléphone</div>
+                  <div class="v"><a href="tel:+21626146655">+216 26 146 655</a></div>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <span class="ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16v16H4z" opacity="0" />
+                    <path d="M22 6l-10 7L2 6" />
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                  </svg></span>
+                <div>
+                  <div class="t" data-i18n="contact.emailLabel">Email</div>
+                  <div class="v"><a href="mailto:contact@ultrachem.tn">contact@ultrachem.tn</a></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-cta-row">
+              <a href="tel:+21626146655" class="btn btn-ghost btn-block" data-i18n="cta.callNow">Appeler maintenant</a>
+              <a href="https://wa.me/21626146655" target="_blank" rel="noopener"
+                class="btn btn-ghost btn-block">WhatsApp</a>
+              <a href="mailto:contact@ultrachem.tn" class="btn btn-ghost btn-block" data-i18n="cta.sendEmail">Envoyer un
+                email</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/LOGO_ULTRACHEM.webp" alt="ULTRACHEM" class="logo-img logo-img-footer">
+          <div class="footer-rule"></div>
+          <p data-i18n="footer.blurb">Ultrachem accompagne les industriels avec une offre technique fiable, un suivi
+            réactif et des solutions adaptées au marché africain.</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.navTitle">Navigation</h4>
+          <ul>
+            <li><a href="#apropos" data-i18n="nav.apropos">À propos</a></li>
+            <li><a href="#produits" data-i18n="nav.produits">Produits</a></li>
+            <li><a href="#partenaires" data-i18n="nav.partenaires">Partenaires</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="nav.contact">Contact</h4>
+          <div class="footer-contact-item">
+            <div class="l" data-i18n="contact.addressLabel">Adresse</div>
+            <div class="v">Avenue Lakhmi, Imm La Perla 2, 6ème étage, Sfax - Tunisie</div>
+          </div>
+          <div class="footer-contact-item">
+            <div class="l" data-i18n="contact.phoneLabel">Téléphone</div>
+            <div class="v"><a href="tel:+21626146655">+216 26 146 655</a></div>
+          </div>
+          <div class="footer-contact-item">
+            <div class="l" data-i18n="contact.emailLabel">Email</div>
+            <div class="v"><a href="mailto:contact@ultrachem.tn">contact@ultrachem.tn</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer.copyright">© 2026 Ultrachem. Tous droits réservés.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Logo click: desktop returns to the Hero middle (same as the site's opening position),
+    // mobile keeps the native anchor behavior (scrolls to the true top of the page).
+    document.querySelectorAll('.logo').forEach(function (logo) {
+      logo.addEventListener('click', function (e) {
+        if (window.innerWidth >= 820 && typeof window.scrollToHeroMiddle === 'function') {
+          e.preventDefault();
+          window.scrollToHeroMiddle();
+        }
+      });
+    });
+
+    // ===================== I18N =====================
+    const I18N = {
+      fr: {
+        nav: { apropos: "À propos", produits: "Produits", partenaires: "Partenaires", contact: "Contact" },
+        a11y: { skipLink: "Aller au contenu principal" },
+        aria: {
+          searchOpen: "Ouvrir la recherche", searchClose: "Fermer la recherche", searchClear: "Effacer la recherche",
+          menuOpen: "Ouvrir le menu", menuClose: "Fermer le menu", filterFamily: "Filtrer par famille de produits"
+        },
+        search: {
+          placeholder: "Rechercher un produit, une famille ou un fournisseur…",
+          hint: "Ex. « PVA 950 F », « pigments organiques », « TRONOX »",
+          noResults: "Aucun résultat pour « {term} ». Essayez un autre nom, ou",
+          contactTeam: "contactez notre équipe technique"
+        },
+        cta: {
+          quoteGeneric: "Demander un devis", discoverProducts: "Découvrir nos produits",
+          quote: "Demande de devis", datasheet: "Fiche technique",
+          callNow: "Appeler maintenant", sendEmail: "Envoyer un email"
+        },
+        hero: {
+          titleLine1: "Émulsions & additifs", titleLine2: "pour peintures",
+          lead: "Fournisseur d'émulsions et d'additifs de haute précision pour l'industrie de la peinture."
+        },
+        stat: { partners: "Partenaires stratégiques", families: "Familles de produits", isoLabel: "Standards qualité partenaires" },
+        about: {
+          eyebrow: "À PROPOS",
+          p1: "ULTRACHEM est une société spécialisée dans la distribution de produits chimiques pour l'industrie de la peinture.",
+          p2: "Nous connectons nos clients aux meilleurs fournisseurs internationaux avec un service commercial et technique de haut niveau."
+        },
+        positioning: {
+          eyebrow: "POSITIONNEMENT", title: "Notre positionnement",
+          p1: "Nous sommes un acteur de confiance dans la distribution d'émulsions et d'additifs techniques.",
+          p2: "Notre double compétence — commerciale et technique — nous permet d'accompagner nos clients dans leurs choix stratégiques, <strong>de la sélection des matières premières à l'optimisation de leurs formules.</strong>"
+        },
+        engagement: {
+          eyebrow: "ENGAGEMENT", title: "Notre engagement",
+          p1: "Chaque projet nécessite une approche adaptée.",
+          p2: "Grâce à notre connaissance du terrain commercial, nous garantissons <strong>réactivité, traçabilité et rigueur</strong> dans chaque étape de notre collaboration."
+        },
+        comp: {
+          commercialTag: "Compétences commerciales",
+          c1: "Maîtrise des techniques de vente", c2: "Connaissance des produits et du marché",
+          c3: "Capacité d'adaptation et d'organisation", c4: "Connaissance et respect de la politique commerciale",
+          technicalTag: "Compétences techniques",
+          t1: "Accompagnement des formulateurs en phase de sélection produit",
+          t2: "Lecture et interprétation des fiches techniques fournisseurs",
+          t3: "Documentation et traçabilité des références commercialisées"
+        },
+        products: {
+          eyebrow: "CATALOGUE", title: "Nos produits",
+          lead: "Des matières premières sélectionnées pour répondre aux exigences techniques des peintures."
+        },
+        family: {
+          all: "Toutes les familles",
+          emulsions: { name: "Émulsions", code: "GRP‑01 · PERFORMANCE / ADHÉRENCE / STABILITÉ", lead: "Solutions pour performance, adhérence et stabilité des peintures." },
+          biocides: { name: "Biocides", code: "GRP‑02 · PROTECTION / STABILITÉ", lead: "Protection longue durée des formulations aqueuses contre les contaminations." },
+          antimousse: { name: "Agent antimousse", code: "GRP‑03 · CONTRÔLE / SURFACE", lead: "Contrôle de mousse en fabrication et application pour finitions régulières." },
+          tio2: { name: "Dioxyde de titane", code: "GRP‑04 · BLANCHEUR / OPACITÉ", lead: "Pigments premium pour opacité, blancheur et résistance des revêtements." },
+          "pig-org": { name: "Pigments organiques", code: "GRP‑05 · COULEUR / DÉCORATION", lead: "Nuances intérieures avec rendu visuel stable et attractif." },
+          "pig-inorg": { name: "Pigments inorganiques", code: "GRP‑06 · RÉSISTANCE / STABILITÉ", lead: "Excellente tenue à la chaleur, lumière et migration pour usages exigeants." },
+          epaississant: { name: "Agent épaississant", code: "GRP‑07 · RHÉOLOGIE / CONSISTANCE", lead: "Amélioration de la consistance, rétention d'eau et stabilité des formules." },
+          dispersant: { name: "Agent dispersant", code: "GRP‑08 · DISPERSION / HOMOGÉNÉITÉ", lead: "Dispersion maîtrisée des charges et pigments pour un film homogène." }
+        },
+        prod: {
+          p01: { desc: "Emulsion vinylique." }, p02: { desc: "Emulsion vinyle acrylique." }, p03: { desc: "Emulsion styrène acrylique." },
+          p04: { desc: "Emulsion pure acrylique." }, p05: { desc: "Emulsion styrène acrylique haute performance." },
+          p06: { desc: "Biocide à large spectre pour la protection des produits aquatiques." },
+          p07: { desc: "Antimousse sans silicone pour peintures mates et encres à base d'eau." },
+          p08: { desc: "Antimousse liquide économique pour applications en milieu aqueux." },
+          p09: { desc: "Pigment rutile à usage général basé sur procédé sulfate." },
+          p10: { desc: "Pigment polyvalent fabriqué par procédé au chlorure." },
+          p11: { desc: "Pigment IRIDESIUM pour applications intérieures." },
+          p12: { desc: "Pigment organique pour usage intérieur." },
+          p13: { desc: "Gamme IRIDESIUM pour applications intérieures." },
+          p14: { desc: "Pigment organique pour peinture." },
+          p15: { desc: "Référence IRIDESIUM pour finitions intérieures." },
+          p16: { desc: "Haute tenue à la chaleur, lumière et migration." },
+          p17: { desc: "Pigment inorganique résistant et stable." },
+          p18: { desc: "Pigment inorganique avec excellente résistance." },
+          p19: { desc: "Série Synox haute qualité, excellente tenue." },
+          p20: { desc: "Référence pour formulations à base d'eau." },
+          p21: { desc: "Amélioration de la consistance, stabilité et rétention d'eau." },
+          p22: { desc: "Éther de cellulose non ionique soluble dans l'eau." },
+          p23: { desc: "Additif de contrôle de dispersion pour revêtements à base d'eau." }
+        },
+        partners: { eyebrow: "PARTENAIRES", title: "Des leaders pour mieux vous assurer" },
+        contact: {
+          eyebrow: "CONTACT", title: "Contactez-nous",
+          lead: "ULTRACHEM est à votre disposition pour répondre à vos besoins.",
+          addressLabel: "Adresse", phoneLabel: "Téléphone", emailLabel: "Email"
+        },
+        footer: {
+          blurb: "Ultrachem accompagne les industriels avec une offre technique fiable, un suivi réactif et des solutions adaptées au marché africain.",
+          navTitle: "Navigation", copyright: "© 2026 Ultrachem. Tous droits réservés."
+        },
+        mailto: {
+          quoteSubject: "Demande de devis", datasheetSubject: "Demande de fiche technique", genericQuoteSubject: "Demande de devis — ULTRACHEM",
+          greeting: "Bonjour,", quoteIntro: "Je souhaite recevoir un devis pour le produit suivant :",
+          datasheetIntro: "Je souhaite recevoir la fiche technique du produit suivant :",
+          genericIntro: "Je souhaite obtenir un devis ULTRACHEM.",
+          productLabel: "Produit", categoryLabel: "Catégorie", fillDetails: "Merci de compléter vos coordonnées ci-dessous :",
+          nameLabel: "Nom", companyLabel: "Entreprise", phoneLabel: "Téléphone", emailLabel: "Email",
+          productsConcerned: "Produit(s) concerné(s)", additionalInfo: "Informations complémentaires",
+          productQuestionSubject: "Question produit", productQuestionBody: "Bonjour,\n\nJe recherche un produit correspondant à : {term}\n\nMerci de me recontacter."
+        }
+      },
+      en: {
+        nav: { apropos: "About", produits: "Products", partenaires: "Partners", contact: "Contact" },
+        a11y: { skipLink: "Skip to main content" },
+        aria: {
+          searchOpen: "Open search", searchClose: "Close search", searchClear: "Clear search",
+          menuOpen: "Open menu", menuClose: "Close menu", filterFamily: "Filter by product family"
+        },
+        search: {
+          placeholder: "Search for a product, family or supplier…",
+          hint: "E.g. “PVA 950 F”, “organic pigments”, “TRONOX”",
+          noResults: "No results for “{term}”. Try another name, or",
+          contactTeam: "contact our technical team"
+        },
+        cta: {
+          quoteGeneric: "Request a quote", discoverProducts: "Discover our products",
+          quote: "Request a quote", datasheet: "Technical data sheet",
+          callNow: "Call now", sendEmail: "Send an email"
+        },
+        hero: {
+          titleLine1: "Emulsions & additives", titleLine2: "for paints",
+          lead: "Supplier of high-precision emulsions and additives for the paint industry."
+        },
+        stat: { partners: "Strategic partners", families: "Product families", isoLabel: "Partner quality standards" },
+        about: {
+          eyebrow: "ABOUT",
+          p1: "ULTRACHEM is a company specialized in the distribution of chemical products for the paint industry.",
+          p2: "We connect our customers with the best international suppliers, backed by high-level commercial and technical service."
+        },
+        positioning: {
+          eyebrow: "POSITIONING", title: "Our positioning",
+          p1: "We are a trusted player in the distribution of technical emulsions and additives.",
+          p2: "Our dual expertise — commercial and technical — allows us to support our customers in their strategic choices, <strong>from raw material selection to formula optimization.</strong>"
+        },
+        engagement: {
+          eyebrow: "COMMITMENT", title: "Our commitment",
+          p1: "Every project requires a tailored approach.",
+          p2: "Thanks to our field commercial knowledge, we guarantee <strong>responsiveness, traceability and rigor</strong> at every step of our collaboration."
+        },
+        comp: {
+          commercialTag: "Commercial expertise",
+          c1: "Mastery of sales techniques", c2: "Knowledge of products and the market",
+          c3: "Adaptability and organizational skills", c4: "Knowledge of and compliance with commercial policy",
+          technicalTag: "Technical expertise",
+          t1: "Supporting formulators through product selection",
+          t2: "Reading and interpreting supplier technical data sheets",
+          t3: "Documentation and traceability of marketed references"
+        },
+        products: {
+          eyebrow: "CATALOG", title: "Our products",
+          lead: "Raw materials selected to meet the technical requirements of paints."
+        },
+        family: {
+          all: "All families",
+          emulsions: { name: "Emulsions", code: "GRP‑01 · PERFORMANCE / ADHESION / STABILITY", lead: "Solutions for paint performance, adhesion and stability." },
+          biocides: { name: "Biocides", code: "GRP‑02 · PROTECTION / STABILITY", lead: "Long-lasting protection of aqueous formulations against contamination." },
+          antimousse: { name: "Antifoam agent", code: "GRP‑03 · CONTROL / SURFACE", lead: "Foam control during manufacturing and application for consistent finishes." },
+          tio2: { name: "Titanium dioxide", code: "GRP‑04 · WHITENESS / OPACITY", lead: "Premium pigments for opacity, whiteness and coating resistance." },
+          "pig-org": { name: "Organic pigments", code: "GRP‑05 · COLOR / DECORATION", lead: "Interior shades with a stable, attractive visual finish." },
+          "pig-inorg": { name: "Inorganic pigments", code: "GRP‑06 · RESISTANCE / STABILITY", lead: "Excellent heat, light and migration resistance for demanding uses." },
+          epaississant: { name: "Thickening agent", code: "GRP‑07 · RHEOLOGY / CONSISTENCY", lead: "Improved consistency, water retention and formula stability." },
+          dispersant: { name: "Dispersing agent", code: "GRP‑08 · DISPERSION / HOMOGENEITY", lead: "Controlled dispersion of fillers and pigments for a uniform film." }
+        },
+        prod: {
+          p01: { desc: "Vinyl emulsion." }, p02: { desc: "Vinyl acrylic emulsion." }, p03: { desc: "Styrene acrylic emulsion." },
+          p04: { desc: "Pure acrylic emulsion." }, p05: { desc: "High-performance styrene acrylic emulsion." },
+          p06: { desc: "Broad-spectrum biocide for the protection of aqueous products." },
+          p07: { desc: "Silicone-free antifoam for matte paints and water-based inks." },
+          p08: { desc: "Cost-effective liquid antifoam for aqueous applications." },
+          p09: { desc: "General-purpose rutile pigment based on the sulfate process." },
+          p10: { desc: "Versatile pigment manufactured via the chloride process." },
+          p11: { desc: "IRIDESIUM pigment for interior applications." },
+          p12: { desc: "Organic pigment for interior use." },
+          p13: { desc: "IRIDESIUM range for interior applications." },
+          p14: { desc: "Organic pigment for paint." },
+          p15: { desc: "IRIDESIUM reference for interior finishes." },
+          p16: { desc: "High resistance to heat, light and migration." },
+          p17: { desc: "Resistant and stable inorganic pigment." },
+          p18: { desc: "Inorganic pigment with excellent resistance." },
+          p19: { desc: "High-quality Synox range, excellent durability." },
+          p20: { desc: "Reference for water-based formulations." },
+          p21: { desc: "Improved consistency, stability and water retention." },
+          p22: { desc: "Water-soluble non-ionic cellulose ether." },
+          p23: { desc: "Dispersion control additive for water-based coatings." }
+        },
+        partners: { eyebrow: "PARTNERS", title: "Leaders you can count on" },
+        contact: {
+          eyebrow: "CONTACT", title: "Contact us",
+          lead: "ULTRACHEM is available to answer your needs.",
+          addressLabel: "Address", phoneLabel: "Phone", emailLabel: "Email"
+        },
+        footer: {
+          blurb: "Ultrachem supports industrial businesses with reliable technical offerings, responsive follow-up and solutions tailored to the African market.",
+          navTitle: "Navigation", copyright: "© 2026 Ultrachem. All rights reserved."
+        },
+        mailto: {
+          quoteSubject: "Quote request", datasheetSubject: "Technical data sheet request", genericQuoteSubject: "Quote request — ULTRACHEM",
+          greeting: "Hello,", quoteIntro: "I would like to receive a quote for the following product:",
+          datasheetIntro: "I would like to receive the technical data sheet for the following product:",
+          genericIntro: "I would like to request a quote from ULTRACHEM.",
+          productLabel: "Product", categoryLabel: "Category", fillDetails: "Please fill in your details below:",
+          nameLabel: "Name", companyLabel: "Company", phoneLabel: "Phone", emailLabel: "Email",
+          productsConcerned: "Product(s) of interest", additionalInfo: "Additional information",
+          productQuestionSubject: "Product question", productQuestionBody: "Hello,\n\nI am looking for a product matching: {term}\n\nPlease get back to me."
+        }
+      }
+    };
+
+    let currentLang = (function () {
+      try { return localStorage.getItem('ultrachem_lang') || 'fr'; } catch (e) { return 'fr'; }
+    })();
+
+    function t(key) {
+      const parts = key.split('.');
+      let obj = I18N[currentLang];
+      for (let i = 0; i < parts.length; i++) { obj = obj ? obj[parts[i]] : undefined; }
+      return (obj !== undefined && obj !== null) ? obj : key;
+    }
+    function getFamilyName(fam) { return t('family.' + fam + '.name'); }
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      try { localStorage.setItem('ultrachem_lang', lang); } catch (e) { }
+
+      document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.getAttribute('data-i18n')); });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n-html')); });
+      document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))); });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder'))); });
+
+      document.querySelectorAll('.lang-switch').forEach(sw => {
+        sw.dataset.active = lang;
+        sw.querySelectorAll('.lang-option').forEach(btn => {
+          const on = btn.dataset.lang === lang;
+          btn.classList.toggle('active', on);
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      });
+
+      if (typeof refreshFamilyDropdownLabel === 'function') refreshFamilyDropdownLabel();
+      if (typeof refreshMailtoLinks === 'function') refreshMailtoLinks();
+
+      document.body.classList.add('lang-fade');
+      setTimeout(() => document.body.classList.remove('lang-fade'), 350);
+    }
+
+    document.querySelectorAll('.lang-switch .lang-option').forEach(btn => {
+      btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+    });
+
+    // Mobile menu
+    const menuToggle = document.getElementById('menuToggle');
+    const menuClose = document.getElementById('menuClose');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function openMenu() { mobileMenu.classList.add('open'); menuToggle.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { mobileMenu.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }
+    menuToggle.addEventListener('click', openMenu);
+    menuClose.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    // ===== Sitewide search index: products only =====
+    const productIndex = Array.from(document.querySelectorAll('.p-card')).map(card => {
+      const family = card.closest('.family-block').dataset.family;
+      const enFamilyName = (I18N.en.family[family] && I18N.en.family[family].name) ? I18N.en.family[family].name.toLowerCase() : '';
+      return {
+        type: 'product',
+        el: card,
+        name: card.querySelector('h4').textContent.trim(),
+        category: card.querySelector('.p-cat').textContent.trim(),
+        supplier: card.querySelector('.supplier-chip').textContent.trim(),
+        family,
+        get familyLabel() { return getFamilyName(family); },
+        haystack: card.dataset.name + ' ' + enFamilyName
+      };
+    });
+
+    const searchIndex = [...productIndex];
+
+    // ===== Product filter (family only — free-text now lives in the global navbar search) =====
+    const chips = document.querySelectorAll('.family-tab');
+    const familyBlocks = document.querySelectorAll('.family-block');
+    const fdBtn = document.getElementById('familyDropdownBtn');
+    const fdPanel = document.getElementById('familyDropdownPanel');
+    const fdLabel = document.getElementById('familyDropdownLabel');
+    const fdCount = document.getElementById('familyDropdownCount');
+    const fdOptions = fdPanel ? Array.from(fdPanel.querySelectorAll('.fd-option')) : [];
+    let activeFamily = 'all';
+
+    function filterProducts() {
+      familyBlocks.forEach(block => {
+        const fam = block.dataset.family;
+        const show = activeFamily === 'all' || activeFamily === fam;
+        block.style.display = show ? '' : 'none';
+      });
+    }
+
+    function closeFamilyDropdown() {
+      if (!fdPanel) return;
+      fdPanel.classList.remove('open');
+      fdBtn.setAttribute('aria-expanded', 'false');
+    }
+    function openFamilyDropdown() {
+      if (!fdPanel) return;
+      fdPanel.classList.add('open');
+      fdBtn.setAttribute('aria-expanded', 'true');
+    }
+
+    function refreshFamilyDropdownLabel() {
+      const matched = fdOptions.find(o => o.dataset.family === activeFamily);
+      if (matched && fdLabel && fdCount) {
+        fdLabel.textContent = matched.querySelector('span').textContent;
+        fdCount.textContent = matched.querySelector('.fd-option-count').textContent;
+      }
+    }
+
+    function setActiveFamily(fam) {
+      activeFamily = fam;
+      chips.forEach(c => {
+        const on = c.dataset.family === fam;
+        c.classList.toggle('active', on);
+        c.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      fdOptions.forEach(opt => {
+        const on = opt.dataset.family === fam;
+        opt.classList.toggle('active', on);
+        opt.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      refreshFamilyDropdownLabel();
+      filterProducts();
+    }
+
+    function scrollToFamilyGroup(fam) {
+      const target = (fam === 'all')
+        ? document.querySelector('.family-block')
+        : document.getElementById('fam-' + fam);
+      if (!target) return;
+      const headerEl = document.querySelector('header');
+      const toolbarEl = document.querySelector('.product-toolbar');
+      const offset = (headerEl ? headerEl.offsetHeight : 0) + (toolbarEl ? toolbarEl.offsetHeight : 0) + 20;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: Math.max(0, Math.round(top)), behavior: 'smooth' });
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        setActiveFamily(chip.dataset.family);
+        scrollToFamilyGroup(chip.dataset.family);
+      });
+    });
+
+    if (fdBtn && fdPanel) {
+      fdBtn.addEventListener('click', () => {
+        fdPanel.classList.contains('open') ? closeFamilyDropdown() : openFamilyDropdown();
+      });
+      fdOptions.forEach(opt => {
+        opt.addEventListener('click', () => {
+          setActiveFamily(opt.dataset.family);
+          closeFamilyDropdown();
+          fdBtn.focus();
+          scrollToFamilyGroup(opt.dataset.family);
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!fdBtn.contains(e.target) && !fdPanel.contains(e.target)) closeFamilyDropdown();
+      });
+      fdBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openFamilyDropdown();
+          fdOptions[0] && fdOptions[0].focus();
+        }
+      });
+      fdOptions.forEach((opt, idx) => {
+        opt.setAttribute('tabindex', '0');
+        opt.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowDown') { e.preventDefault(); (fdOptions[idx + 1] || fdOptions[0]).focus(); }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); (fdOptions[idx - 1] || fdOptions[fdOptions.length - 1]).focus(); }
+          else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); opt.click(); }
+          else if (e.key === 'Escape') { closeFamilyDropdown(); fdBtn.focus(); }
+        });
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeFamilyDropdown();
+      });
+    }
+
+    // ===== Mailto builders =====
+    function mailtoLink(subject, body) {
+      return 'mailto:contact@ultrachem.tn?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+    function buildQuoteBody(productName, category) {
+      return [
+        t('mailto.greeting'),
+        '',
+        t('mailto.quoteIntro'),
+        t('mailto.productLabel') + ' : ' + productName,
+        t('mailto.categoryLabel') + ' : ' + category,
+        '',
+        t('mailto.fillDetails'),
+        t('mailto.nameLabel') + ' : ',
+        t('mailto.companyLabel') + ' : ',
+        t('mailto.phoneLabel') + ' : ',
+        t('mailto.emailLabel') + ' : ',
+        '',
+        t('mailto.additionalInfo') + ' :',
+        ''
+      ].join('\n');
+    }
+    function buildDatasheetBody(productName, category) {
+      return [
+        t('mailto.greeting'),
+        '',
+        t('mailto.datasheetIntro'),
+        t('mailto.productLabel') + ' : ' + productName,
+        t('mailto.categoryLabel') + ' : ' + category,
+        '',
+        t('mailto.fillDetails'),
+        t('mailto.nameLabel') + ' : ',
+        t('mailto.companyLabel') + ' : ',
+        t('mailto.phoneLabel') + ' : ',
+        t('mailto.emailLabel') + ' : ',
+        '',
+        t('mailto.additionalInfo') + ' :',
+        ''
+      ].join('\n');
+    }
+    function buildGenericQuoteBody() {
+      return [
+        t('mailto.greeting'),
+        '',
+        t('mailto.genericIntro'),
+        '',
+        t('mailto.fillDetails'),
+        t('mailto.nameLabel') + ' : ',
+        t('mailto.companyLabel') + ' : ',
+        t('mailto.phoneLabel') + ' : ',
+        t('mailto.emailLabel') + ' : ',
+        t('mailto.productsConcerned') + ' : ',
+        '',
+        t('mailto.additionalInfo') + ' :',
+        ''
+      ].join('\n');
+    }
+
+    function refreshMailtoLinks() {
+      productIndex.forEach(p => {
+        const quoteBtn = p.el.querySelector('.btn-quote');
+        const sheetBtn = p.el.querySelector('.btn-datasheet');
+        const catName = getFamilyName(p.family);
+        if (quoteBtn) {
+          quoteBtn.href = mailtoLink(t('mailto.quoteSubject') + ' — ' + p.name, buildQuoteBody(p.name, catName));
+        }
+        if (sheetBtn) {
+          sheetBtn.href = mailtoLink(t('mailto.datasheetSubject') + ' — ' + p.name, buildDatasheetBody(p.name, catName));
+        }
+      });
+      document.querySelectorAll('.btn-quote-generic').forEach(btn => {
+        btn.href = mailtoLink(t('mailto.genericQuoteSubject'), buildGenericQuoteBody());
+      });
+    }
+    refreshMailtoLinks();
+
+    // ===== Smart sitewide search: matching + highlighting =====
+    function matchIndex(term) {
+      const q = term.trim().toLowerCase();
+      if (!q) return [];
+      const words = q.split(/\s+/).filter(Boolean);
+      return searchIndex
+        .map(item => {
+          const hay = item.haystack;
+          const matchesAll = words.every(w => hay.includes(w));
+          if (!matchesAll) return null;
+          const nameIdx = item.name.toLowerCase().indexOf(q);
+          const score = nameIdx === -1 ? 100 : nameIdx;
+          return { item, score };
+        })
+        .filter(Boolean)
+        .sort((a, b) => a.score - b.score)
+        .map(x => x.item);
+    }
+    function highlightText(text, term) {
+      if (!term) return text;
+      const idx = text.toLowerCase().indexOf(term.toLowerCase());
+      if (idx === -1) return text;
+      return text.slice(0, idx) + '<mark>' + text.slice(idx, idx + term.length) + '</mark>' + text.slice(idx + term.length);
+    }
+    function flashElement(el) {
+      el.classList.add('search-flash');
+      setTimeout(() => el.classList.remove('search-flash'), 1600);
+    }
+    function scrollToCentered(el, stickyOffset) {
+      const rect = el.getBoundingClientRect();
+      const elTop = rect.top + window.pageYOffset;
+      const availableHeight = window.innerHeight - stickyOffset;
+      const target = elTop - stickyOffset - Math.max(0, (availableHeight - rect.height) / 2);
+      window.scrollTo({ top: Math.max(0, Math.round(target)), behavior: 'smooth' });
+    }
+    function goToResult(item) {
+      if (!item) return;
+      setActiveFamily(item.family);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const headerEl = document.querySelector('header');
+          const toolbarEl = document.querySelector('.product-toolbar');
+          const stickyOffset = (headerEl ? headerEl.offsetHeight : 0) + (toolbarEl ? toolbarEl.offsetHeight : 0);
+          scrollToCentered(item.el, stickyOffset);
+          flashElement(item.el);
+        });
+      });
+    }
+
+    // ===== Generic suggestion-dropdown controller =====
+    function makeSuggestController(input, panel, clearBtn, opts) {
+      opts = opts || {};
+      let items = [];
+      let hlIndex = -1;
+
+      function render(term) {
+        const results = matchIndex(term).slice(0, opts.limit || 8);
+        items = results;
+        hlIndex = -1;
+        if (clearBtn) clearBtn.hidden = term.length === 0;
+        if (!term.trim()) {
+          panel.innerHTML = '';
+          panel.classList.remove('open');
+          input.setAttribute('aria-expanded', 'false');
+          return;
+        }
+        if (results.length === 0) {
+          panel.innerHTML = '<div class="suggest-empty">' + t('search.noResults').replace('{term}', term) + ' <a href="' + mailtoLink(t('mailto.productQuestionSubject') + ' — ' + term, t('mailto.productQuestionBody').replace('{term}', term)) + '" style="color:var(--blue);font-weight:600;">' + t('search.contactTeam') + '</a>.</div>';
+          panel.classList.add('open');
+          input.setAttribute('aria-expanded', 'true');
+          return;
+        }
+        panel.innerHTML = results.map((item, i) => (
+          '<div class="suggest-item" role="option" data-index="' + i + '">' +
+          '<span class="si-name">' + highlightText(item.name, term) + '</span>' +
+          '<span class="si-meta">' + item.familyLabel + '</span>' +
+          '</div>'
+        )).join('');
+        panel.classList.add('open');
+        input.setAttribute('aria-expanded', 'true');
+
+        panel.querySelectorAll('.suggest-item').forEach(row => {
+          row.addEventListener('mouseenter', () => setHl(parseInt(row.dataset.index, 10)));
+          row.addEventListener('click', () => {
+            select(items[parseInt(row.dataset.index, 10)]);
+          });
+        });
+      }
+
+      function setHl(i) {
+        hlIndex = i;
+        panel.querySelectorAll('.suggest-item').forEach((row, idx) => {
+          row.classList.toggle('hl', idx === hlIndex);
+        });
+      }
+
+      function select(item) {
+        if (!item) return;
+        goToResult(item);
+        closeSuggestions(panel);
+        input.value = '';
+        if (clearBtn) clearBtn.hidden = true;
+        if (opts.afterSelect) opts.afterSelect();
+      }
+
+      input.addEventListener('input', () => render(input.value));
+      input.addEventListener('focus', () => { if (input.value.trim()) render(input.value); });
+      input.addEventListener('keydown', (e) => {
+        const rows = panel.querySelectorAll('.suggest-item');
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (rows.length) { setHl((hlIndex + 1) % rows.length); }
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (rows.length) { setHl((hlIndex - 1 + rows.length) % rows.length); }
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (hlIndex >= 0 && items[hlIndex]) {
+            select(items[hlIndex]);
+          } else if (items[0]) {
+            select(items[0]);
+          }
+        } else if (e.key === 'Escape') {
+          closeSuggestions(panel);
+          input.blur();
+        }
+      });
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          input.value = '';
+          closeSuggestions(panel);
+          clearBtn.hidden = true;
+          input.focus();
+        });
+      }
+
+      return { render, close: () => closeSuggestions(panel) };
+    }
+    function closeSuggestions(panel) {
+      panel.classList.remove('open');
+      panel.innerHTML = '';
+    }
+
+    // Global search — icon toggle + panel
+    const searchToggle = document.getElementById('searchToggle');
+    const searchPanel = document.getElementById('searchPanel');
+    const headerSearchInput = document.getElementById('headerSearchInput');
+    const headerSuggestions = document.getElementById('headerSuggestions');
+    const navSearchClear = document.getElementById('navSearchClear');
+
+    function openSearchPanel() {
+      searchPanel.classList.add('open');
+      searchToggle.setAttribute('aria-expanded', 'true');
+      headerSearchInput.focus();
+    }
+    function closeSearchPanel() {
+      searchPanel.classList.remove('open');
+      searchToggle.setAttribute('aria-expanded', 'false');
+      closeSuggestions(headerSuggestions);
+      headerSearchInput.value = '';
+      if (navSearchClear) navSearchClear.hidden = true;
+    }
+    searchToggle.addEventListener('click', () => {
+      if (searchPanel.classList.contains('open')) closeSearchPanel();
+      else openSearchPanel();
+    });
+
+    makeSuggestController(headerSearchInput, headerSuggestions, navSearchClear, {
+      afterSelect: closeSearchPanel
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!searchPanel.contains(e.target) && !searchToggle.contains(e.target)) {
+        closeSearchPanel();
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && searchPanel.classList.contains('open')) {
+        closeSearchPanel();
+      }
+    });
+
+    // Animated counters (Hero stats)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('.num-count').forEach(el => {
+      const target = parseInt(el.dataset.count, 10) || 0;
+      if (prefersReducedMotion) {
+        el.textContent = target;
+        return;
+      }
+      const duration = 1400;
+      let startTime = null;
+      function tick(ts) {
+        if (!startTime) startTime = ts;
+        const progress = Math.min((ts - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      setTimeout(() => requestAnimationFrame(tick), 400);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Apply saved/default language now that all UI pieces are wired up
+    applyLanguage(currentLang);
+  </script>
+
+</body>
+
+</html>
